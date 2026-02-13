@@ -1,0 +1,1 @@
+# Node_modules\nnode_modules/\n\n# Log files\nlogs/\n*.log\n\n# OS generated files\n.DS_Store\nThumbs.db\n\n# Environment variable files\n.env\n
