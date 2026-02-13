@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+  background-color: #C0C0C0;
+  font-family: Arial;
+}
+
+.navbar {
+  background-color: #3366CC;
+  padding: 10px;
+  color: white;
+  font-weight: bold;
+}
+
+.button {
+  background-color: #FFFF99;
+  border: 2px solid black;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.box {
+  background-color: white;
+  border: 2px solid black;
+  padding: 10px;
+  margin: 10px;
+}
+
+h2 {
+  background-color: #EEEEEE;
+  padding: 5px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="navbar">
+  🧱 BLOXYTORIA (2026)
+</div>
+
+<div class="box">
+  <h2>🧱 Your Bricks</h2>
+  <p id="brickCount"></p>
+  <button class="button" onclick="earnBricks()">Earn 25 Bricks</button>
+</div>
+
+<div class="box">
+  <h2>🎮 Games</h2>
+  <div id="games"></div>
+</div>
+
+<div class="box">
+  <h2>👥 Players</h2>
+  <ul id="players"></ul>
+</div>
+
+<script>
+
+// --- BRICKS SYSTEM ---
+if (!localStorage.getItem("bricks")) {
+  localStorage.setItem("bricks", 100);
+}
+
+function updateBricks() {
+  document.getElementById("brickCount").textContent =
+    localStorage.getItem("bricks") + " Bricks";
+}
+
+function earnBricks() {
+  let current = parseInt(localStorage.getItem("bricks"));
+  current += 25;
+  localStorage.setItem("bricks", current);
+  updateBricks();
+}
+
+updateBricks();
+
+// --- GAMES ---
+const games = [
+  {name: "Classic Obby", creator: "Admin"},
+  {name: "Brick Battle", creator: "BuilderX"},
+  {name: "Speed Run 2026", creator: "NoobKing"}
+];
+
+const gameContainer = document.getElementById("games");
+
+games.forEach(game => {
+  const div = document.createElement("div");
+  div.className = "box";
+  div.innerHTML = `
+    <b>${game.name}</b><br>
+    By ${game.creator}<br>
+    <button class="button" onclick="alert('Loading ${game.name}...')">
+      Play
+    </button>
+  `;
+  gameContainer.appendChild(div);
+});
+
+// --- PLAYERS ---
+const players = [
+  {name: "Admin", bricks: 9999},
+  {name: "BuilderX", bricks: 1200},
+  {name: "NoobKing", bricks: 500}
+];
+
+const playerList = document.getElementById("players");
+
+players.forEach(player => {
+  const li = document.createElement("li");
+  li.textContent = `${player.name} - 🧱 ${player.bricks} Bricks`;
+  playerList.appendChild(li);
+});
+
+</script>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body { margin:0; background:#C0C0C0; }
+canvas { background:white; display:block; margin:auto; border:2px solid black; }
+</style>
+</head>
+<body>
+
+<canvas id="game" width="600" height="400"></canvas>
+
+<script>
+const canvas = document.getElementById("game");
+const ctx = canvas.getContext("2d");
+
+let player = { x:50, y:300, width:30, height:30, dy:0, jumping:false };
+let gravity = 0.8;
+let platforms = [
+  {x:0, y:350, width:600, height:50},
+  {x:200, y:280, width:100, height:20},
+  {x:400, y:220, width:100, height:20}
+];
+
+document.addEventListener("keydown", e => {
+  if (e.key === "ArrowRight") player.x += 20;
+  if (e.key === "ArrowLeft") player.x -= 20;
+  if (e.key === " " && !player.jumping) {
+    player.dy = -15;
+    player.jumping = true;
+  }
+});
+
+function update() {
+  ctx.clearRect(0,0,600,400);
+
+  // gravity
+  player.y += player.dy;
+  player.dy += gravit
