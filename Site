@@ -32,19 +32,47 @@
     margin-bottom: 15px;
   }
 
-  button {
-    background-color: #00ffc8;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: 0.3s;
-  }
+ <button onclick="showGames()">Play Games</button>
+
+<div id="games" style="display:none; margin-top:20px;">
+  <button onclick="loadGame('snake')">🐍 Snake</button>
+  <button onclick="loadGame('tictactoe')">❌ Tic Tac Toe</button>
+  <div id="gameArea" style="margin-top:20px;"></div>
+</div>
+
 
   button:hover {
     background-color: #00bfa6;
     transform: scale(1.05);
   }
 </style>
+<script>
+function showGames() {
+  document.getElementById("games").style.display = "block";
+}
+
+function loadGame(game) {
+  const gameArea = document.getElementById("gameArea");
+  gameArea.innerHTML = "";
+
+  if (game === "snake") {
+    gameArea.innerHTML = `
+      <iframe src="https://playsnake.org/" 
+        width="600" height="400" 
+        style="border:none; border-radius:10px;">
+      </iframe>
+    `;
+  }
+
+  if (game === "tictactoe") {
+    gameArea.innerHTML = `
+      <iframe src="https://playtictactoe.org/" 
+        width="400" height="400" 
+        style="border:none; border-radius:10px;">
+      </iframe>
+    `;
+  }
+}
+</script>
+
 
